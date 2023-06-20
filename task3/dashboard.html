@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Profile Picture</title>
+    <style>
+        #thumbnail {
+            max-width: 200px;
+            max-height: 200px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Upload Profile Picture</h2>
+    <form method="POST" action="dashboard.php" enctype="multipart/form-data">
+        <label for="picture">Profile Picture:</label>
+        <input type="file" id="picture" name="picture" accept="image/jpeg, image/jpg, image/png" required>
+        <br><br>
+        <div id="thumbnail"></div>
+        <br>
+        <input type="submit" value="Upload">
+    </form>
+
+    <script>
+        function previewPicture(event) {
+            var thumbnail = document.getElementById('thumbnail');
+            thumbnail.innerHTML = '';
+            
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '100%';
+                thumbnail.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        }
+
+        var pictureInput = document.getElementById('picture');
+        pictureInput.addEventListener('change', previewPicture);
+    </script>
+</body>
+</html>
